@@ -22,6 +22,8 @@ document.querySelector(".btn-roll").addEventListener("click", function() {
       //1 buusan tul toglogchiin eeljiig solino
       switchToNextPlayer();
     }
+  } else {
+    alert("Тоглоом дууслаа new game дээр дарж шинээр эхэлнүү");
   }
 });
 // hold tovchnii eventlistener
@@ -31,7 +33,7 @@ document.querySelector(".btn-hold").addEventListener("click", function() {
     scores[activePlayer] = scores[activePlayer] + roundScore;
     document.getElementById("score-" + activePlayer).textContent =
       scores[activePlayer];
-    if (scores[activePlayer] >= 20) {
+    if (scores[activePlayer] >= 100) {
       gameOver = true;
       document.getElementById("name-" + activePlayer).textContent = "WINNER!!!";
       document
@@ -40,6 +42,8 @@ document.querySelector(".btn-hold").addEventListener("click", function() {
     } else {
       switchToNextPlayer();
     }
+  } else {
+    alert("Тоглоом дууслаа new game дээр дарж шинээр эхэлнүү");
   }
 });
 
