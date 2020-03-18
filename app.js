@@ -1,37 +1,45 @@
-var activePlayer, scores, roundScore;
+var activePlayer, scores, roundScore, gameOver;
 var diceDom = document.querySelector(".dice");
 newGame();
 // shoog shideh event litener
+
 document.querySelector(".btn-roll").addEventListener("click", function() {
-  //1-6 hurtel sanamsargui toog gargaj irne
-  var diceNumber = Math.floor(Math.random() * 6) + 1;
-  // shoonii zurgiig gargaj irne
-  diceDom.style.display = "block";
-  //buusan sanamsargui toond taarsan zurgiig gargaj irne
-  diceDom.src = "dice-" + diceNumber + ".png";
-  //buusan toon 1 ees yalgaaatai bol idvehitei toglogchiin toog nemegduulne
-  if (diceNumber !== 1) {
-    // 1 ees yalgaatai too buulaa
-    roundScore = roundScore + diceNumber;
-    document.getElementById("current-" + activePlayer).textContent = roundScore;
-  } else {
-    //1 buusan tul toglogchiin eeljiig solino
-    switchToNextPlayer();
+  if (gameOver === false) {
+    //1-6 hurtel sanamsargui toog gargaj irne
+    var diceNumber = Math.floor(Math.random() * 6) + 1;
+    // shoonii zurgiig gargaj irne
+    diceDom.style.display = "block";
+    //buusan sanamsargui toond taarsan zurgiig gargaj irne
+    diceDom.src = "dice-" + diceNumber + ".png";
+    //buusan toon 1 ees yalgaaatai bol idvehitei toglogchiin toog nemegduulne
+    if (diceNumber !== 1) {
+      // 1 ees yalgaatai too buulaa
+      roundScore = roundScore + diceNumber;
+      document.getElementById(
+        "current-" + activePlayer
+      ).textContent = roundScore;
+    } else {
+      //1 buusan tul toglogchiin eeljiig solino
+      switchToNextPlayer();
+    }
   }
 });
 // hold tovchnii eventlistener
 
 document.querySelector(".btn-hold").addEventListener("click", function() {
-  scores[activePlayer] = scores[activePlayer] + roundScore;
-  document.getElementById("score-" + activePlayer).textContent =
-    scores[activePlayer];
-  if (scores[activePlayer] >= 20) {
-    document.getElementById("name-" + activePlayer).textContent = "WINNER!!!";
-    document
-      .querySelector(".player-" + activePlayer + "-panel")
-      .classList.add("winner");
-  } else {
-    switchToNextPlayer();
+  if (gameOver === false) {
+    scores[activePlayer] = scores[activePlayer] + roundScore;
+    document.getElementById("score-" + activePlayer).textContent =
+      scores[activePlayer];
+    if (scores[activePlayer] >= 20) {
+      gameOver = true;
+      document.getElementById("name-" + activePlayer).textContent = "WINNER!!!";
+      document
+        .querySelector(".player-" + activePlayer + "-panel")
+        .classList.add("winner");
+    } else {
+      switchToNextPlayer();
+    }
   }
 });
 
@@ -48,6 +56,7 @@ function switchToNextPlayer() {
   //..................................
 }
 function newGame() {
+  gameOver = false;
   activePlayer = 0;
   scores = [0, 0];
   roundScore = 0;
