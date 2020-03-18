@@ -1,26 +1,6 @@
-var activePlayer = 0;
-var scores = [0, 0];
-var roundScore = 0;
-
-document.getElementById("score-0").textContent = "0";
-document.getElementById("score-1").textContent = "0";
-document.getElementById("current-0").textContent = "0";
-document.getElementById("current-1").textContent = "0";
-
+var activePlayer, scores, roundScore;
 var diceDom = document.querySelector(".dice");
-diceDom.style.display = "none";
-/*
-function unlucy() {
-  roundScore = 0;
-  diceDom.style.display = "none";
-  document.getElementById("current-" + activePlayer).textContent = 0;
-
-  activePlayer === 0 ? (activePlayer = 1) : (activePlayer = 0);
-
-  document.querySelector(".player-0-panel").classList.toggle("active");
-  document.querySelector(".player-1-panel").classList.toggle("active");
-}
-*/
+newGame();
 // shoog shideh event litener
 document.querySelector(".btn-roll").addEventListener("click", function() {
   //1-6 hurtel sanamsargui toog gargaj irne
@@ -67,3 +47,29 @@ function switchToNextPlayer() {
   document.querySelector(".player-1-panel").classList.toggle("active");
   //..................................
 }
+function newGame() {
+  activePlayer = 0;
+  scores = [0, 0];
+  roundScore = 0;
+
+  document.getElementById("score-0").textContent = "0";
+  document.getElementById("score-1").textContent = "0";
+  document.getElementById("current-0").textContent = "0";
+  document.getElementById("current-1").textContent = "0";
+  diceDom.style.display = "none";
+  document.getElementById("name-0").textContent = "PLAYER1";
+  document.getElementById("name-1").textContent = "PLAYER2";
+
+  document.querySelector(".player-0-panel").classList.remove("winner");
+  document.querySelector(".player-1-panel").classList.remove("winner");
+
+  document.querySelector(".player-0-panel").classList.remove("active");
+  document.querySelector(".player-1-panel").classList.remove("active");
+
+  document.querySelector(".player-0-panel").classList.add("active");
+}
+//.....................................
+
+//shine togloom ehluuleh towchnii evenlistner
+
+document.querySelector(".btn-new").addEventListener("click", newGame);
